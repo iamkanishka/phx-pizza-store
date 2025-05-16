@@ -15,7 +15,21 @@ defmodule PizzaStoreApp.MixProject do
   # the apps folder.
   #
   # Run "mix help deps" for examples and options.
-  defp deps do
-    []
+    defp deps do
+    [
+      # Shared umbrella dependencies
+      {:phoenix_pubsub, "~> 2.1"},
+      {:jason, "~> 1.4"},
+      {:ecto_sql, "~> 3.10"},
+      {:postgrex, ">= 0.0.0"}
+    ]
+  end
+
+  defp aliases do
+    [
+      "ecto.setup": ["ecto.create", "ecto.migrate"],
+      "ecto.reset": ["ecto.drop", "ecto.setup"],
+      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"]
+    ]
   end
 end
