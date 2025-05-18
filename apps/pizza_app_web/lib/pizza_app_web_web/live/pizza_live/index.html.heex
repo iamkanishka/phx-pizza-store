@@ -1,0 +1,43 @@
+<.header>
+  Listing Pizzas
+  <:actions>
+    <.link patch={~p"/pizzas/new"}>
+      <.button>New Pizza</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="pizzas"
+  rows={@streams.pizzas}
+  row_click={fn {_id, pizza} -> JS.navigate(~p"/pizzas/#{pizza}") end}
+>
+  <:col :let={{_id, pizza}} label="Name">{pizza.name}</:col>
+  <:col :let={{_id, pizza}} label="Price">{pizza.price}</:col>
+  <:col :let={{_id, pizza}} label="Description">{pizza.description}</:col>
+  <:action :let={{_id, pizza}}>
+    <div class="sr-only">
+      <.link navigate={~p"/pizzas/#{pizza}"}>Show</.link>
+    </div>
+    <.link patch={~p"/pizzas/#{pizza}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, pizza}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: pizza.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="pizza-modal" show on_cancel={JS.patch(~p"/pizzas")}>
+  <.live_component
+    module={PizzaAppWeb.PizzaLive.FormComponent}
+    id={@pizza.id || :new}
+    title={@page_title}
+    action={@live_action}
+    pizza={@pizza}
+    patch={~p"/pizzas"}
+  />
+</.modal>
