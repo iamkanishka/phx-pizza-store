@@ -16,6 +16,18 @@
 # General application configuration
 import Config
 
+config :pizza_app_accounts, PizzaAppAccounts.Repo,
+  database: "pizza_app_accounts_repo",
+  username: "user",
+  password: "pass",
+  hostname: "localhost"
+
+config :pizza_app_ordering, PizzaAppOrdering.Repo,
+  database: "pizza_app_ordering_repo",
+  username: "user",
+  password: "pass",
+  hostname: "localhost"
+
 config :pizza_app_admin,
   ecto_repos: [PizzaAppAdmin.Repo],
   generators: [timestamp_type: :utc_datetime]
