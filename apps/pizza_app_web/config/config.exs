@@ -8,7 +8,7 @@
 import Config
 
 config :pizza_app_web,
-  ecto_repos: [PizzaAppWeb.Repo],
+  ecto_repos: [PizzaAppWeb.Repo,  PizzaAppOrdering.Repo, PizzaAppAccounts.Repo],
   generators: [timestamp_type: :utc_datetime]
 
 # Configures the endpoint
