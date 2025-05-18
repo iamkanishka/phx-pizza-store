@@ -10,6 +10,8 @@ defmodule PizzaAppWeb.Application do
     children = [
       PizzaAppWebWeb.Telemetry,
       PizzaAppWeb.Repo,
+      PizzaAppOrdering.Repo,
+      PizzaAppAccounts.Repo,
       {DNSCluster, query: Application.get_env(:pizza_app_web, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: PizzaAppWeb.PubSub},
       # Start the Finch HTTP client for sending emails
